@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Versionamento de Código V2.0</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl" class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<center>
+				<img src="https://ucb.catolica.edu.br/portal/wp-content/uploads/2019/02/catolica-de-brasilia.svg" >
+			</center>
+		</div>	
+	</div>	
+	
+	 <div class="panel panel-default">
+			
+		<div class="panel-heading">
+			<h2>Cadastro Aluno</h2>
+		</div>	
+		<div class="panel-body">
+			<div class="form-group row">
+				
+				<div class="col-sm-6">
+					<div class="col-sm-2 ">
+						<label >Nome: </label>
+					</div>	
+					<div class="col-sm-6">	
+						<input type="text" class="form-control" id="name" ng-model="aluno.nome"/>
+					</div>	
+				</div>
+			</div>
+			<div class="form-group row"  class="col-md-12"> 
+				<div class="col-sm-6">
+					<div class="col-sm-2">
+						<label>SobreNome: </label>
+					</div>	
+					<div class="col-sm-6">
+						<input type="text" class="form-control" ng-model="aluno.sobreNome">
+					</div>
+					<div class="col-sm-4">
+						<button type="button" class="btn btn-success" ng-click="adicionar();">Adicionar</button>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+			<!--<div class="form-group row">
+				<div class="col-sm-6">	
+					Nome Completo: {{aluno.nome + " " + aluno.sobreNome}}
+				</div>		
+			</div>		-->
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2>Alunos cadastrados</h2>
+		</div>	
+		<div class="panel-body">
+			<div class="col-sm-10">
+				<table class="table table-bordered">
+					<thead>
+					  <tr>
+						<th>Nome</th>
+						<th>SobreNome</th> 
+						<th>Ações</th>						
+					  </tr>
+					</thead>
+					<tbody>
+					   <tr ng-repeat="x in alunos">
+						<td>{{ x.nome }}</td>
+						<td>{{ x.sobreNome }}</td>
+						<td>
+							
+							<button class="btn btn-default" ng-click="alterar($index);"> <span class="glyphicon glyphicon glyphicon-pencil"></span></button>
+							<button class="btn btn-default" ng-click="removeItem($index)"> <span class="glyphicon glyphicon glyphicon-remove"></span></button>
+						</td>
+					  </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+	$scope.alunos = [];
+	 $scope.aluno = {
+		nome: "Fabricio",
+		sobreNome: "Fernandes",
+	 }
+    $scope.firstName = "Fabrício";
+    $scope.lastName = "Fernandes";
+	
+	$scope.adicionar = function(){
+		$scope.alunos.push($scope.aluno);
+		$scope.aluno = {};
+	}
+	
+	$scope.alterar= function(index){
+		
+		$scope.aluno = $scope.alunos[index];
+		$scope.removeItem(index);
+	}
+	
+	$scope.removeItem = function(index){
+		$scope.alunos.splice(index, 1);
+	}
+});
+</script>
+
+</body>
+</html>
